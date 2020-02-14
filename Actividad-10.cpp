@@ -5,7 +5,7 @@ using namespace std;
 struct Pedido
 {
     string Apellido;
-    string Mesa;
+    int Mesa;
     int Burritos;
     int Alitas;
     int Tacos;
@@ -14,10 +14,11 @@ struct Pedido
     int Pizza;
     int Ensalada;
     int Tiempo;
+    
 };
 
 typedef Pedido T;
-const T noValido = {{" "}, -1, -1, -1, -1, -1. -1, -1, -1};
+const T noValido = {{""}, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 
 struct Nodo
 {
@@ -54,7 +55,7 @@ void vertodos();
 int main()
 {
 
-    cout << "Bienvenidos a Mix Restaurant ";
+    cout << "\nBienvenidos a Mix Restaurant ";
     initialize(&MixRestaurant.colaPedidos);
     MixRestaurant.ComidaHecha = 0;
 
@@ -89,7 +90,7 @@ int main()
             continuar = false;
             break;
         default:
-            cout << "Opcion invalida!\n";
+            cout << "Opción inválida!\n";
             break;
         }
 
@@ -165,14 +166,12 @@ int size(Cola *q)
     initialize(&colaTemporal);
 
     int contador = 0;
-    // Transfiriendo desde q hasta colaTemporal
     while (!empty(q))
     {
         T elemento = dequeue(q);
         enqueue(&colaTemporal, elemento);
         contador++;
     }
-    // Transfiriendo desde colaTemporal hasta q
     while (!empty(&colaTemporal))
     {
         T elemento = dequeue(&colaTemporal);
@@ -189,25 +188,25 @@ void agregar()
     cout << "Número de la mesa: ";
     cin >> unPedido.Mesa;
     cin.ignore();
-    cout << "Cantidad de : ";
+    cout << "Cantidad de ordenes de alitas: ";
     cin >> unPedido.Alitas;
     cin.ignore();
-    cout << "Cantidad de : ";
+    cout << "Cantidad de ordenes de burritos: ";
     cin >> unPedido.Burritos;
     cin.ignore();
-    cout << "Cantidad de: ";
+    cout << "Cantidad de ordenes de ensalada: ";
     cin >> unPedido.Ensalada;
     cin.ignore();
-    cout << "Cantidad de: ";
+    cout << "Cantidad de ordenes de hamburguesa: ";
     cin >> unPedido.Hamburguesas;
     cin.ignore();
-    cout << "Cantidad de: ";
+    cout << "Cantidad de ordenes de Hot Dogs: ";
     cin >> unPedido.HotDogs;
     cin.ignore();
-    cout << "Cantidad de: ";
+    cout << "Cantidad de ordenes de pizza: ";
     cin >> unPedido.Pizza;
     cin.ignore();
-    cout << "Cantidad de: ";
+    cout << "Cantidad de ordenes de tacos: ";
     cin >> unPedido.Tacos;
     cin.ignore();
     unPedido.Tiempo = (unPedido.Alitas + unPedido.Burritos + unPedido.Ensalada + unPedido.Hamburguesas + unPedido.HotDogs + unPedido.Pizza + unPedido.Tacos) * 600;
@@ -220,7 +219,7 @@ void agregar()
 void consultar()
 {
     cout << "Pedidos en espera: " << size(&MixRestaurant.colaPedidos) << endl;
-    cout << "Total pupusas hechas: " << MixRestaurant.ComidaHecha << endl;
+    cout << "Total de ordenes hechas: " << MixRestaurant.ComidaHecha << endl;
 }
 
 void servir()

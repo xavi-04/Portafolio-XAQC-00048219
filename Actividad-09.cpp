@@ -1,60 +1,94 @@
-//Agenda 
 #include <iostream>
 #include <string>
 #include <queue>
 using namespace std;
 
-struct schedule{
-    string Title;
-    string Hour;
-    int Minutes;
+struct insertarActividad{
+  string Titulo;
+  string Hora;
+  int Duracion;
+  string Descripcion;
+  string Tipo;
+};
+typedef struct insertarActividad Actividad;
+
+struct agenda{
+    queue <Actividad> colaToDo;
 };
 
-typedef struct schedule Schedule;
+agenda agendaPersonal;
 
-struct activities{
-    queue<schedule> colaActividades;
-    string ActividadesRealizadas;
-    int MinutosOcupados;
-};
+void Insertar();
+void VerActividades();
+void borrarUna();
+void borrarTodas();
 
-typedef struct activities Activities;
 
-Activities Agenda2020;
-
-void agregar();
-void consular();
-void borrar();
-void reiniciar ();
-
-int main(){    
-    Agenda2020.ActividadesRealizadas = 0;
-    Agenda2020.MinutosOcupados = 0;
-
+int main(){
     bool continuar = true;
     do{
         int opcion = 0;
-        cout << "\n1) Agregar actividad\n ";
-        cout << "2) Consultar actividades actuales\n ";
-        cout << "3) Borrar actividades\n ";
-        cout << "4) Borrar todo\n ";
-        cout << "5) Salir ";
+        cout << "\n1) Agregar una actividad\n";
+        cout << "2) Ver las actividades\n";
+        cout << "3) Borrar una actividad\n";
+        cout << "4) Borrar todas las actividades\n";
+        cout << "5) Salir\n";
+        cout << "Opcion elegida: ";
         cin >> opcion; cin.ignore();
-
-        switch (opcion)
-        {
-        case 1:
-            break;
-        
+       
+        switch(opcion){
+            case 1: Insertar(); break;
+            case 2: VerActividades(); break;
+            case 3: borrarUna(); break;
+            case 4: borrarTodas(); break;
+            case 5: continuar = false; break;
+            default: cout << "Opcion invalida!\n"; break;
         }
-    }
-    return 0;
+    }while(continuar);
 }
 
-    cout << "Ingrese el título de la actividad: ";
-    cin >> Activities.Title;
-    cout << "Inicio de la Actividad: ";
-    cin >> Activities.Hour;
-    cout << "Duración de la Actividad: ";
-    cin >> Activities.Minutes;
-    return 0;
+
+
+void Insertar(){
+    Actividad unaActividad;
+    cout << "Ingrese su actividad del dia: ";
+    getline(cin, unaActividad.Titulo);
+    cout << "Ingrese la hora de su actividad: ";
+    getline(cin, unaActividad.Hora);
+    cout << "Cuanto dura su actividad?";
+    cin >> unaActividad.Duracion;
+    cin.ignore();
+    cout << "Ingrese una descripcion de su actividad: ";
+    getline(cin, unaActividad.Descripcion);
+    cout << "Su actividad es de tipo: ";
+    getline(cin, unaActividad.Tipo);
+   
+    //Agregar a la cola
+    agendaPersonal.colaToDo.push(unaActividad);
+}
+
+void VerActividades(){
+    cout << "Actividades del dia: " << agendaPersonal.colaToDo.size() <<endl;
+   
+}
+
+void borrarUna(){
+    int op;
+    cout << "Desea borrar una actividad? Digite 1 para hacerlo o digite 2 para cancelar." << endl;
+    cin >> op;
+    if(op == 1){
+        agendaPersonal.colaToDo.pop();
+        cout << "Se ha borado la actividad" << endl;
+      }
+    }
+
+
+void borrarTodas(){
+    int op;
+    cin >> op;
+    cout << "Desea borrar todas las actividades? Digite 1 para hacerlo o digite 2 para cancelar." <<endl;
+    if(op == 1){
+        agendaPersonal.colaToDo.pop();
+        cout << "Se han borrado todas las actividades" << endl;
+    }
+  }
